@@ -49,7 +49,7 @@ function isNumber(str) {
 function connect(vantage, server, port, opt) {
   return vantage.connect(server, port, opt).then(function(err) {
     if (err) {
-      vantage._pause();
+      vantage.ui.pause();
       process.exit(1);
     } else {
       if (!vantage.ui.midPrompt()) {
@@ -60,7 +60,7 @@ function connect(vantage, server, port, opt) {
     if (err.stack) {
       vantage.log(err.stack);
     }
-    vantage._pause();
+    vantage.ui.pause();
     process.exit(1);
   });
 }
