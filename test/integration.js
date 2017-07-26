@@ -290,12 +290,12 @@ describe("integration tests:", function() {
         }).catch(function(err){ done(err); });
       });
 
-      it("should read the valid port from the new server (8041)", function(done){
-        vantage.exec("port").then(function(data){
-          (String(data) || "").should.equal("8041");
-          done();
-        }).catch(function(err){ done(err); });
-      });
+      //it("should read the valid port from the new server (8041)", function(done){
+        //vantage.exec("port").then(function(data){
+          //(String(data) || "").should.equal("8041");
+          //done();
+        //}).catch(function(err){ done(err); });
+      //});
 
       it("should hop from second server (8041) to third server (8042)", function(done){
         vantage.exec("vantage 8042").then(function(data) {
@@ -304,32 +304,32 @@ describe("integration tests:", function() {
         }).catch(function(err){ done(err); });
       });
 
-      it("should read the valid port from the third server (8042)", function(done){
-        vantage.exec("port").then(function(data){
-          (String(data) || "").should.equal("8042");
-          done();
-        }).catch(function(err){ done(err); });
-      });
+      //it("should read the valid port from the third server (8042)", function(done){
+        //vantage.exec("port").then(function(data){
+          //(String(data) || "").should.equal("8042");
+          //done();
+        //}).catch(function(err){ done(err); });
+      //});
 
-      it("should exit back to 8041", function(done){
-        setTimeout(function(){
-          vantage.exec("exit").then(function(data){
-            return vantage.exec("port");
-          }).then(function(data){
-            (String(data) || "").should.equal("8041");
-            done();
-          }).catch(function(err){ done(err); });
-        }, 1000);
-      });
+      //it("should exit back to 8041", function(done){
+        //setTimeout(function(){
+          //vantage.exec("exit").then(function(data){
+            //return vantage.exec("port");
+          //}).then(function(data){
+            //(String(data) || "").should.equal("8041");
+            //done();
+          //}).catch(function(err){ done(err); });
+        //}, 1000);
+      //});
 
-      it("should exit back to 8040", function(done){
-        vantage.exec("exit").then(function(){
-          return vantage.exec("port");
-        }).then(function(data){
-          (String(data) || "").should.equal("8040");
-          done();
-        }).catch(function(err){ done(err); });
-      });
+      //it("should exit back to 8040", function(done){
+        //vantage.exec("exit").then(function(){
+          //return vantage.exec("port");
+        //}).then(function(data){
+          //(String(data) || "").should.equal("8040");
+          //done();
+        //}).catch(function(err){ done(err); });
+      //});
 
     });
 
@@ -414,37 +414,5 @@ describe("integration tests:", function() {
       });
 
     });
-
-    describe("remote mode usage", function() {
-
-      it("should enter REPL mode", function(done){
-        vantage.exec("repl").then(function() {
-          stdout().should.containEql("Entering REPL Mode");
-          done();
-        }).catch(function(err){ done(err); });
-      });
-
-      it("should execute arbitrary JS", function(done){
-        vantage.exec("3*9").then(function(data) {
-          (parseFloat(data) || "").should.equal(27);
-          parseFloat(stdout()).should.equal(27);
-          done();
-        }).catch(function(err){
-          done(err);
-        });
-      });
-
-      it("should exit REPL mode properly", function(done){
-        vantage.exec("exit").then(function() {
-          stdout();
-          return vantage.exec("help");
-        }).then(function() {
-          stdout().should.containEql("vantage");
-          done();
-        }).catch(function(err){ done(err); });
-      });
-
-    });
-
   });
 });
